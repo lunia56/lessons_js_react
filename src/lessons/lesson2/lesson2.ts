@@ -23,15 +23,44 @@ console.log('lesson 2');
 
 // Task 01
 // Реализовать функцию sum которая суммирует 2 числа следующим образом sum(3)(6) === 9
+const curry = (f: Function) => {
+    return function (a: any) {
+        return function (b: any) {
+            return f(a, b)
+        }
+    }
+}
+
+const summy = (a: any, b: any) => {
+    return a + b
+}
+const sum = curry(summy)
+console.log(sum(3)(6))
+
 
 // Task 02
 // Реализовать функцию makeCounter которая работает следующим образом:
-// const counter = makeCounter();
 // counter(); // 1
 // counter(); // 2
-// const counter2 = makeCounter();
 // counter2(); // 1
 // counter(); // 3
+
+const makeCounter = () => {
+    let count = 0
+    const foo = () => {
+        return count = count + 1
+    }
+    return foo
+}
+const counter = makeCounter();
+const counter2 = makeCounter();
+
+console.log(
+    counter(),
+    counter(),
+    counter2(),
+    counter(),
+)
 
 // Task 03
 // Переписать функцию из Task 02 так, что бы она принимала число в качестве аргумента и это число было стартовым значением счетчика
@@ -41,6 +70,29 @@ console.log('lesson 2');
 // reset: установить счетчик в 0;
 // set: установить счетчик в заданное значение;
 
+const makeCounter2 = (num: number=0) => {
+    let _count = num
+
+    const obj = {
+        increase: () => {
+            return _count = _count + 1
+        },
+        decrease: () => {
+            return _count = _count - 1
+        },
+        reset: () => {
+            return _count = 0
+        },
+        set: (a: number) => {
+            return _count = a
+        }
+    }
+    return obj
+}
+
+console.log(
+    makeCounter2().set(7)
+)
 // Task 04*
 // Реализовать функцию superSum которая принимает число в качестве аргумента, которое указывает на количество слагаемых
 // и что бы корректно работали следующие вызовы:
@@ -60,4 +112,5 @@ console.log('lesson 2');
 // написать функцию, которая повторяет функционал метода flat массива на всю глубину.
 
 // just a plug
-export default () => {};
+export default () => {
+};
